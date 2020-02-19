@@ -1,7 +1,7 @@
 {
   "name": "pets-api",
   "version": "1.0.0",
-  "description": "Rest API for pet simulation game",
+  "description": "Rest API for Arena",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
