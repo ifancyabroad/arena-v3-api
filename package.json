@@ -1,5 +1,5 @@
 {
-  "name": "pets-api",
+  "name": "arena-api",
   "version": "1.0.0",
   "description": "Rest API for Arena",
   "main": "app.js",

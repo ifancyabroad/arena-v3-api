@@ -15,16 +15,16 @@ exports.signup = async (req, res, next) => {
       errorHandler('Validation failed.', 422, errors.array());
     }
 
-    const email = req.body.email;
-    const name = req.body.name;
+    // const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
 
     // Save user data and return user ID
     const hashedPassword = await bcrypt.hash(password, 12)
     const user = new User({
-      email: email,
+      // email: email,
       password: hashedPassword,
-      name: name
+      username: username
     });
     const result = await user.save();
     res.status(201).json({ message: 'User created!', userId: result._id })
@@ -35,15 +35,15 @@ exports.signup = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
 
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
 
   try {
 
     // Search user and throw error if not found
-    const user = await User.findOne({ email: email })
+    const user = await User.findOne({ username: username })
     if (!user) {
-      errorHandler('A user with this email could not be found.', 401);
+      errorHandler('A user with this username could not be found.', 401);
     }
 
     const loadedUser = user;
@@ -56,9 +56,9 @@ exports.login = async (req, res, next) => {
 
     // Sign token and return with user ID
     const token = jwt.sign({
-      email: loadedUser.email,
+      username: loadedUser.username,
       userId: loadedUser._id.toString()
-    }, JWT_SECRET, { expiresIn: '1h' });
+    }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.status(200).json({ message: 'Login successful!', token: token, userId: loadedUser._id.toString() });
   } catch (err) {
     next(err);
