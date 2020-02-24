@@ -15,7 +15,7 @@ exports.getScores = async (req, res, next) => {
     // Return scores by kill in ASCENDING order and limit to 10 per page
     const scores = await Score.find()
       .populate('user')
-      .sort({ kills: 1 })
+      .sort({ kills: -1, name: 1 })
       .skip((currentPage - 1) * perPage)
       .limit(perPage);
 
