@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const compression = require('compression');
 
+const scoresRoutes = require('./routes/scores');
 const authRoutes = require('./routes/auth');
 
 const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-dtnsb.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true&w=majority`;
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 // App routes
+app.use('/scores', scoresRoutes);
 app.use('/auth', authRoutes);
 
 // Catch any errors by including error parameter

@@ -9,7 +9,13 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true
-  }
+  },
+  scores: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Score'
+    }
+  ]
 })
 
 module.exports = mongoose.model('User', userSchema);
